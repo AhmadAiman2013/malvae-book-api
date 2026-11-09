@@ -4,12 +4,25 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "test": "vitest run",
+    "auth:generate": "npx auth@latest generate --config src/auth.cli.ts --output src/db/auth-schema.ts -y",
+    "ci:build": "drizzle-kit generate && drizzle-kit migrate && vitest run"
   },
   "dependencies": {
-    "hono": "^4.13.16"
+    "@hono/zod-validator": "^0.9.1",
+    "@libsql/client": "^0.18.0",
+    "better-auth": "^1.7.18",
+    "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.16",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "dotenv": "^18.0.10",
+    "drizzle-kit": "^0.31.11",
+    "vitest": "^5.1.0",
     "wrangler": "^4.158.0"
   }
 }
